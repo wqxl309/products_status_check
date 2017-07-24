@@ -25,16 +25,19 @@ if __name__=='__main__':
                     'GD2IClong' :r'\\GD2_ICLONG\cwstate',
                     'MS1IClong' :r'\\MS1_ICLONG\cwstate',
 
+                    #'BQ1IFLong' :r'\\BQ1_IFLONG\cwstate',
+                    #'BQ2IFLong' :r'\\BQ2_IFLONG\cwstate',
+                    #'BQ3IFLong' :r'\\BQ3_IFLONG\cwstate',
                     'JQ1IFLong' :r'\\JQ1_IFLONG\cwstate',
-                    #'MS1IFLong' :r'\\MS1_IFLONG\cwstate',
                     #'HJ1IFLong' :r'\\HJ1_IFLONG\cwstate',
+                    #'LS1IFLong' :r'\\LS1_IFLONG\cwstate',
+                    #'GD2IFLong' :r'\\GD2_IFLONG\cwstate',
 
                     'BQ1ICHedge':r'\\BQ1_ICHEDGE\cwstate',
                     'BQ2ICHedge':r'\\BQ2_ICHEDGE\cwstate',
                     'BQ3ICHedge':r'\\BQ3_ICHEDGE\cwstate',
                     'LS1ICHedge':r'\\LS1_ICHEDGE\cwstate',
                     'GD2ICHedge':r'\\GD2_ICHEDGE\cwstate',
-                    #'XY7ICHedge':r'\\XY7_ICHEDGE\cwstate',
 
                     'GD2yyICHedge':r'\\GD2_yyICHEDGE\cwstate'
                     }
@@ -60,17 +63,14 @@ if __name__=='__main__':
 
         combined.update(check_positions_status(cwdir))
         combined.update(check_trading_status(cwdir,lastcwdir))
-        combined.update(check_kpcmx_status(kpcmxdir))
-        combined.update({'kpcmx_filetime': dt.datetime.fromtimestamp(os.path.getmtime(kpcmxdir)).strftime('%Y-%m-%d %H:%M:%S' )})
+        #combined.update(check_kpcmx_status(kpcmxdir))
+        #combined.update({'kpcmx_filetime': dt.datetime.fromtimestamp(os.path.getmtime(kpcmxdir)).strftime('%Y-%m-%d %H:%M:%S' )})
         result = pd.DataFrame(combined,index=[0])
         report = report.append(combined,ignore_index=True)
 
     report.index = products
     report['full_position'] = report['position_levels']==report['tot_levels']
     report['empty_position'] = report['position_levels']==0
-    colorder = ['tot_levels','in_levels','out_levels','position_levels','full_position','empty_position',
-                'kpcmx_date','kpcmx_filetime','kpcmx_contract','kpcmx_month','kpcmx_strategy','kpcmx_levels']
-    report = report.loc[:,colorder]
     #report.to_csv(r'C:\Users\Jiapeng\Desktop\status.csv')
     print('**************** Products Status Check ********************')
     print(report)
