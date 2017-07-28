@@ -5,9 +5,7 @@ import re
 import pandas as pd
 from checking_functions import *
 from remotewind import w
-import sys
-sys.path.append(r'E:\take_kpcmx\products_base_info')
-import products_base_info as pinfo
+import products_base_info.products_base_info as pinfo
 
 if __name__=='__main__':
     nowtime = dt.datetime.now()
